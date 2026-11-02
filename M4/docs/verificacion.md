@@ -64,7 +64,13 @@ Los registros de comprobación se guardaron junto a los ejemplos como `trace_aud
 
 Se ajustaron los prompts después de observar temas demasiado amplios, un resumen que abreviaba una prohibición y correspondencias que describían operaciones de cambio. Se repitieron los casos afectados. También se reforzó la literalidad de visión; la variación léxica indicada arriba persiste.
 
-En total quedaron registradas 8 ejecuciones completas de desarrollo, con un costo local estimado acumulado de USD 0.2010, además de la prueba mínima de conexión.
+En total quedaron registradas 9 ejecuciones completas de desarrollo, incluido el control adicional, con un costo local estimado acumulado de USD 0.2269, además de la prueba mínima de conexión.
+
+## Control adicional sin cambios
+
+Se pasó `data/test_contracts/simple/original.png` como ambos argumentos. El reporte devolvió listas vacías y señaló que no hay cambios sustantivos. Es un control negativo, no un tercer par de contrato/adenda distinto.
+
+Consumo: 6683 tokens; duración: 14.9 segundos; costo local estimado: USD 0.0258. También se verificó su traza remota completa. La evidencia está en `examples/sin_cambios/`.
 
 ## Límites de la evidencia
 
