@@ -2,6 +2,8 @@
 
 Aplicación de terminal que compara un contrato original con su adenda a partir de dos imágenes PNG/JPEG. Devuelve un JSON validado y un resumen breve con las secciones afectadas, los temas, los tokens y el tiempo de ejecución.
 
+El caso de negocio es LegalMove, una empresa ficticia de tecnología legal cuyo equipo de Compliance dedica más de 40 horas semanales a comparar contratos manualmente. El sistema busca asistir esa revisión con un reporte estructurado y un recorrido auditable.
+
 Los casos de prueba se centran en producción musical: honorarios, entregas, rondas de correcciones, uso de grabaciones y confidencialidad. Los documentos son ficticios y fueron preparados para este proyecto.
 
 ## Arquitectura
@@ -41,10 +43,10 @@ OPENAI_API_KEY=tu-clave-de-openai
 OPENAI_MODEL=gpt-4o
 LANGFUSE_PUBLIC_KEY=tu-clave-publica
 LANGFUSE_SECRET_KEY=tu-clave-secreta
-LANGFUSE_BASE_URL=https://cloud.langfuse.com
+LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-La URL debe coincidir con la región del proyecto. También se acepta `LANGFUSE_HOST` como alternativa a `LANGFUSE_BASE_URL`. Las variables ya definidas en el entorno tienen prioridad sobre `.env`.
+La URL debe coincidir con la región del proyecto. `LANGFUSE_HOST` es el nombre indicado en la consigna. El código también acepta `LANGFUSE_BASE_URL`; si se definen ambos, usa `LANGFUSE_BASE_URL`. Las variables ya definidas en el entorno tienen prioridad sobre `.env`.
 
 Las claves nunca se incluyen en el repositorio. Las bibliotecas LangChain y Pydantic no requieren cuentas. LangSmith no se utiliza.
 
