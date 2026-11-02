@@ -1,23 +1,23 @@
 # AI Engineering — Henry
 
-Soy Gonzalo y estoy organizando acá mi trabajo de la carrera de AI Engineering de Henry, cohorte PT06. El repositorio está dividido por módulos para reunir los apuntes, las consignas y las implementaciones a medida que avance.
+Repositorio de Gonzalo Lucero dedicado a ingeniería de aplicaciones con modelos de lenguaje, desarrollado en el marco de la carrera de AI Engineering de Henry, cohorte PT06.
 
-Mi prioridad actual es el proyecto integrador del M4: comparar un contrato original con su adenda usando visión y dos agentes especializados. Para construirlo voy retomando las bases de los módulos anteriores que necesita cada parte del sistema.
+El recorrido abarca integración con APIs, generación de respuestas estructuradas, recuperación de información y coordinación de agentes. El foco es conectar estas herramientas con problemas concretos y evaluar tanto la calidad de las respuestas como el comportamiento del sistema.
 
 ## Organización
 
-| Carpeta | Tema | Proyecto planteado en la consigna |
+| Carpeta | Tema | Aplicación de referencia |
 | --- | --- | --- |
 | [m1](m1/) | APIs de modelos, prompting, JSON y métricas | Una utilidad de texto que responde consultas con salida estructurada y registra tokens, latencia y costo |
 | [m2](m2/) | Chunking, embeddings, búsqueda vectorial y RAG | Un chatbot de FAQs que recupera información de un documento y muestra los fragmentos usados |
 | [m3](m3/) | Agentes, LangChain y observabilidad | Un orquestador que clasifica consultas y las deriva a agentes RAG por departamento |
 | [m4](m4/) | Visión, comparación de documentos y validación | LegalMove: un pipeline de análisis de contratos y adendas con trazabilidad en Langfuse |
 
-Por ahora M1, M2 y M3 contienen apuntes, objetivos y listas de pendientes. La implementación de M4 todavía está pendiente. Las carpetas no representan entregas completas.
+## LegalMove — Comparación de contratos
 
-## Proyecto integrador M4: LegalMove
+LegalMove es el proyecto central en desarrollo: una herramienta para asistir en la comparación de contratos y adendas escaneados. Su finalidad es transformar documentos en un reporte procesable por otros sistemas, identificando las secciones modificadas, los temas afectados y las condiciones anteriores y nuevas.
 
-La consigna plantea el caso de una empresa de tecnología legal cuyo equipo de Compliance compara contratos y adendas manualmente. El objetivo es recibir las imágenes de los dos documentos y devolver un reporte estructurado con las secciones modificadas, los temas afectados y un resumen de los cambios.
+La propuesta combina lectura multimodal, separación de responsabilidades entre agentes y validación de datos. El análisis debe poder inspeccionarse desde la transcripción hasta el reporte final para facilitar la revisión humana.
 
 El flujo previsto es:
 
@@ -46,7 +46,7 @@ La salida requerida tiene tres campos:
 
 Este JSON es solamente un ejemplo de formato, no el resultado de una ejecución.
 
-## Qué quiero comprobar
+## Criterios técnicos
 
 - Que la transcripción conserve secciones, importes, fechas y negaciones.
 - Que los agentes tengan responsabilidades distintas y compartan la información necesaria.
@@ -64,7 +64,7 @@ M2 trabaja con RAG y bases vectoriales. Es parte del recorrido del curso, pero l
 
 ## Configuración
 
-Cada implementación tendrá sus instrucciones de instalación y ejecución dentro de su carpeta. Todavía no hay un comando de ejecución del M4.
+La documentación específica de cada módulo se encuentra en su carpeta. Las instrucciones de instalación y ejecución se incorporan junto con cada implementación.
 
 Las claves se guardan localmente en archivos `.env`, excluidos por `.gitignore`. Los archivos `.env.example` que se incorporen deben contener únicamente los nombres de las variables y valores de ejemplo.
 
@@ -78,4 +78,4 @@ Las consignas son las de Henry provistas en el campus. Estos repositorios se con
 - [M3: AI Observability](https://github.com/Ivan-Cepeda/AI-Observability)
 - [M4: sistemas multimodales y arquitectura](https://github.com/cTapiaDev/henry-m4-multimodal-architecture)
 
-Los apuntes y pendientes de cada módulo están en su README correspondiente.
+Cada módulo cuenta con un README que desarrolla sus conceptos y alcance.
