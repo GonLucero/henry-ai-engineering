@@ -1,0 +1,15 @@
+
+# Credenciales y archivos locales
+.env
+.env.*
+!.env.example
+!.env.*.example
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Material docente independiente
+primeros_pasos_ai_engineer/
+M1_L2/
+M0_Python_para_AI_Engineering_Guia_Practica.ipynb
