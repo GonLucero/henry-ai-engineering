@@ -1,0 +1,31 @@
+{
+  "simple": {
+    "sections": [
+      "2"
+    ],
+    "checks": [
+      "El precio cambia de ARS 300.000 a ARS 360.000.",
+      "La forma de pago 50%/50% no cambia.",
+      "No se reportan otras cláusulas como modificadas o eliminadas."
+    ]
+  },
+  "complejo": {
+    "sections": [
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "checks": [
+      "Entrega: 30 a 45 días corridos; mismo punto de inicio.",
+      "Revisiones: dos a tres rondas; solicitud de siete a diez días.",
+      "Se mantiene que las revisiones no incluyen nuevas grabaciones.",
+      "Se prohíbe el uso en portfolio que antes admitía fragmentos de hasta 30 segundos con autorización previa escrita.",
+      "La titularidad permanece en el artista.",
+      "Se elimina expresamente la cláusula 6; no se inventa un régimen de cancelación nuevo.",
+      "Se agrega confidencialidad por 12 meses desde la firma de la adenda, para pistas y mezclas no publicadas.",
+      "No cambian servicio, entregables, honorarios ni forma de pago."
+    ]
+  }
+}

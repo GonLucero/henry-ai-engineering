@@ -1,0 +1,31 @@
+CONTRATO DE PRODUCCIÓN MUSICAL
+Proyecto ficticio: EP Horizonte. Identificador: MUS-001.
+Entre Estudio Río (productor) y Artista Horizonte (artista), se acuerda:
+
+1. SERVICIO Y ENTREGABLES
+El productor realizará la grabación, mezcla y mastering de tres canciones.
+Entregará tres archivos WAV estéreo de 24 bits y 48 kHz, uno por canción.
+
+2. HONORARIOS Y FORMA DE PAGO
+El precio total es de ARS 300.000. El artista abonará el 50% al iniciar el
+trabajo y el 50% restante al recibir los archivos finales.
+
+3. PLAZO DE ENTREGA
+La entrega se realizará dentro de los 30 días corridos desde la recepción
+completa de las pistas y referencias del artista.
+
+4. REVISIONES
+Se incluyen dos rondas de correcciones de mezcla. El artista deberá solicitar
+cada ronda dentro de los siete días corridos posteriores a recibir la mezcla.
+Las revisiones no incluyen nuevas grabaciones.
+
+5. TITULARIDAD Y USO DEL MATERIAL
+El artista conserva la titularidad de las grabaciones finales. El productor
+podrá publicar fragmentos de hasta 30 segundos en su portfolio únicamente
+con autorización previa y escrita del artista.
+
+6. CANCELACIÓN
+Si el artista cancela antes de la entrega final, el productor retendrá el 20%
+del precio total como cargo de cancelación y devolverá el excedente abonado.
+
+Documento ficticio para pruebas académicas. No contiene firmas reales.

@@ -1,0 +1,35 @@
+{
+  "trace_id": "fdca6ed1989e5c933534da8ac95a0981",
+  "trace_url": "https://cloud.langfuse.com/project/cmvysd7t802gkad0iwtelon2m/traces/fdca6ed1989e5c933534da8ac95a0981",
+  "input_tokens": 4996,
+  "output_tokens": 1006,
+  "total_tokens": 6002,
+  "estimated_cost_usd": 0.02255,
+  "calls": [
+    {
+      "stage": "vision_transcription",
+      "model": "gpt-4o",
+      "input": 1288,
+      "output": 324
+    },
+    {
+      "stage": "vision_transcription",
+      "model": "gpt-4o",
+      "input": 1288,
+      "output": 138
+    },
+    {
+      "stage": "contextualization_llm",
+      "model": "gpt-4o",
+      "input": 823,
+      "output": 432
+    },
+    {
+      "stage": "extraction_llm",
+      "model": "gpt-4o",
+      "input": 1597,
+      "output": 112
+    }
+  ],
+  "latency_ms": 10702
+}

@@ -1,0 +1,21 @@
+1. Identidad y propósito de cada documento:
+   - Contrato original: "CONTRATO DE PRODUCCIÓN MUSICAL" para el proyecto EP Horizonte, identificador MUS-001, entre Estudio Río y Artista Horizonte. Establece los términos de producción musical, incluyendo servicios, pagos, plazos, revisiones, titularidad, y cancelación.
+   - Adenda: "ADENDA 2 - ACTUALIZACIÓN DEL PROYECTO" para el mismo contrato y proyecto. Introduce cambios específicos a ciertas cláusulas del contrato original. Es parcial y no reemplaza íntegramente al contrato original.
+
+2. Inventario de secciones del original:
+   - Cláusula 1: SERVICIO Y ENTREGABLES. Propósito: Detallar los servicios de grabación, mezcla y mastering, y los entregables.
+   - Cláusula 2: HONORARIOS Y FORMA DE PAGO. Propósito: Establecer el precio total y la forma de pago.
+   - Cláusula 3: PLAZO DE ENTREGA. Propósito: Establecer el plazo para la entrega de los archivos finales.
+   - Cláusula 4: REVISIONES. Propósito: Detallar las rondas de correcciones de mezcla permitidas.
+   - Cláusula 5: TITULARIDAD Y USO DEL MATERIAL. Propósito: Establecer la titularidad de las grabaciones y el uso permitido por el productor.
+   - Cláusula 6: CANCELACIÓN. Propósito: Establecer las condiciones de cancelación y los cargos aplicables.
+
+3. Correspondencias:
+   - Bloque 3 de la adenda → Cláusula 3 del original; propósito: plazo de entrega.
+   - Bloque 4 de la adenda → Cláusula 4 del original; propósito: revisiones.
+   - Bloque 5 de la adenda → Cláusula 5 del original; propósito: titularidad y uso del material.
+   - Bloque 6 de la adenda → Cláusula 6 del original; propósito: cancelación.
+   - Bloque 7 de la adenda → sin correspondencia en el original; propósito: confidencialidad.
+
+4. Bloques sin correspondencia y referencias no resueltas:
+   - Bloque 7 de la adenda no tiene correspondencia en el contrato original.
