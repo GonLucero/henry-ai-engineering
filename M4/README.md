@@ -1,10 +1,10 @@
 # LegalMove — Comparación de contratos
 
-Este proyecto recibe dos imágenes, una de un contrato y otra de su adenda, y devuelve qué cambió entre los documentos: las cláusulas afectadas, los temas y un resumen con las condiciones anteriores y nuevas.
+LegalMove es una empresa de tecnología legal cuyo equipo de Compliance compara contratos manualmente. La idea es ayudar a encontrar los cambios y dejar registrado cómo se obtuvo el resultado para poder revisarlo y ahorrar tiempo.
 
-Parte del caso LegalMove, una empresa de tecnología legal cuyo equipo de Compliance compara contratos manualmente. La idea es ayudar a encontrar los cambios y dejar registrado cómo se obtuvo el resultado para poder revisarlo.
+En este caso se utilizan contratos de producción musical y alquiler de equipos de sonido. Los ejemplos incluyen cambios de honorarios, plazos, rondas de correcciones, uso de grabaciones y depósitos de garantía. Los documentos de prueba son ficticios.
 
-Elegí contratos de producción musical y alquiler de equipos de sonido para los ejemplos. Los cambios incluyen honorarios, plazos, rondas de correcciones, uso de grabaciones y depósitos de garantía. Todos los documentos de prueba son ficticios.
+En este proyecto se reciben dos imágenes: una del contrato original y otra de su adenda. El programa devuelve las cláusulas afectadas, los temas y un resumen con las condiciones anteriores y nuevas.
 
 ## Cómo funciona
 
@@ -30,20 +30,53 @@ El primer agente arma una ficha con las secciones de los documentos y sus corres
 | Pydantic | Validar los campos y tipos del resultado |
 | Langfuse | Consultar las entradas, salidas, tiempos y tokens de cada etapa |
 
-## Instalación
+## Instalación paso a paso
 
-Requiere Python 3.12, acceso a internet, una API key de OpenAI con saldo y un proyecto de Langfuse con sus claves.
+### 1. Instalar Python y Git
+
+Instalá **Python 3.12** desde [python.org](https://www.python.org/downloads/) y **Git** desde [git-scm.com](https://git-scm.com/downloads).
+
+Abrí una terminal. En macOS o Linux podés comprobar la instalación con:
+
+```bash
+python3.12 --version
+git --version
+```
+
+En Windows, el comando para comprobar Python es:
+
+```powershell
+py -3.12 --version
+```
+
+### 2. Descargar el proyecto
+
+Elegí una carpeta en tu computadora, abrí una terminal allí y ejecutá:
 
 ```bash
 git clone https://github.com/GonLucero/henry-ai-engineering.git
 cd henry-ai-engineering/M4
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
+```
+
+A partir de este paso, los comandos se ejecutan dentro de la carpeta `M4`.
+
+### 3. Crear el archivo de configuración
+
+Copiá `.env.example` y guardá la copia con el nombre `.env` en la misma carpeta.
+
+En macOS o Linux:
+
+```bash
 cp .env.example .env
 ```
 
-Completar el archivo `.env` con las claves propias:
+En Windows, desde PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Abrí `.env` con tu editor y completá los valores:
 
 ```dotenv
 OPENAI_API_KEY=tu-clave-de-openai
@@ -53,15 +86,45 @@ LANGFUSE_SECRET_KEY=tu-clave-secreta
 LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-La URL de Langfuse debe corresponder a la región del proyecto. También se acepta `LANGFUSE_BASE_URL`, que tiene prioridad cuando están definidas ambas variables. Las variables del entorno tienen prioridad sobre las del archivo `.env`.
+La clave de OpenAI se obtiene desde [OpenAI Platform](https://platform.openai.com/), con saldo de API disponible. Las claves de Langfuse se obtienen en la configuración de tu proyecto de [Langfuse](https://cloud.langfuse.com/).
 
-`.env.example` es la plantilla para configurar el proyecto. `.env` contiene las claves reales y queda excluido de Git.
+`.env.example` sirve como plantilla. La copia `.env` guarda tus claves reales y queda excluida de Git.
 
-Para comprobar la conexión con una llamada breve que consume saldo:
+### 4. Crear y activar el entorno virtual
+
+El entorno virtual mantiene las bibliotecas de este proyecto en una carpeta propia.
+
+En macOS o Linux:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+```
+
+En Windows, desde PowerShell:
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+### 5. Instalar las dependencias
+
+Con el entorno virtual activado, ejecutá:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Este comando instala las bibliotecas y versiones que usa el proyecto.
+
+### 6. Comprobar las conexiones
 
 ```bash
 python scripts/check_connection.py
 ```
+
+La prueba realiza una llamada breve a OpenAI y envía su registro a Langfuse. Consume saldo de API. Si las conexiones funcionan, podés seguir con los ejemplos de abajo.
 
 ## Probar los ejemplos
 
@@ -195,5 +258,3 @@ La entrada es una imagen PNG/JPEG por documento. El alcance actual se concentra 
 Visión puede introducir variaciones de lectura: en los ejemplos musicales apareció “portafolio” donde la imagen decía “portfolio”. Pydantic valida la estructura y la revisión humana confirma el contenido. El reporte sirve como apoyo a la comparación, con la revisión jurídica a cargo de una persona.
 
 El costo mostrado es una estimación local basada en tokens a tarifa de referencia de GPT-4o. La facturación del proveedor es la referencia definitiva, ya que puede aplicar descuentos o incluir llamadas fallidas.
-
-Para recorrer el código y preparar la demostración, dejé una [guía de defensa](docs/defensa.md).
