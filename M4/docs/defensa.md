@@ -4,7 +4,7 @@
 
 Un contrato fija condiciones. Una adenda modifica algunas de ellas. LegalMove recibe una imagen de cada documento, los lee y presenta los cambios en datos que otro programa puede procesar.
 
-El dominio de los ejemplos es producción musical. En el caso simple cambian los honorarios. En el complejo cambian plazos, revisiones y uso del material, se elimina cancelación y se agrega confidencialidad. Los casos son independientes.
+El dominio de los ejemplos es producción musical. En el caso simple cambian los honorarios. En el complejo cambian plazos, revisiones y uso del material, se elimina cancelación y se agrega confidencialidad. Los casos son independientes. Un tercer par de alquiler de equipos de sonido comprueba cambio de devolución y adición de depósito, sin aumento del precio. Fue evaluado después de ajustar los prompts musicales, sin modificarlos para ese caso.
 
 ## Qué hace cada parte
 

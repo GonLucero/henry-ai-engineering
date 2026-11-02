@@ -4,7 +4,7 @@ Aplicación de terminal que compara un contrato original con su adenda a partir 
 
 El caso de negocio es LegalMove, una empresa ficticia de tecnología legal cuyo equipo de Compliance dedica más de 40 horas semanales a comparar contratos manualmente. El sistema busca asistir esa revisión con un reporte estructurado y un recorrido auditable.
 
-Los casos de prueba se centran en producción musical: honorarios, entregas, rondas de correcciones, uso de grabaciones y confidencialidad. Los documentos son ficticios y fueron preparados para este proyecto.
+Los casos de prueba se centran en producción musical: honorarios, entregas, rondas de correcciones, uso de grabaciones y confidencialidad. Un tercer par prueba alquiler de equipos de sonido, con cambios de devolución y un depósito reembolsable. Los documentos son ficticios y fueron preparados para este proyecto.
 
 ## Arquitectura
 
@@ -66,6 +66,9 @@ python src/main.py data/test_contracts/simple/original.png data/test_contracts/s
 
 # Caso complejo: modificaciones, eliminación y adición
 python src/main.py data/test_contracts/complejo/original.png data/test_contracts/complejo/adenda.png
+
+# Caso adicional: alquiler de equipos de sonido
+python src/main.py data/test_contracts/alquiler_sonido/original.png data/test_contracts/alquiler_sonido/adenda.png
 ```
 
 También acepta imágenes propias, no solamente las de ejemplo:
@@ -142,7 +145,7 @@ python -m pytest -q
 
 Los tests cubren validación de datos, archivos corruptos o incompatibles, respuestas incompletas, el traspaso del mapa y ambos textos al extractor, y separación entre JSON y resumen de terminal. No miden exactitud semántica del modelo.
 
-Los dos casos reales se contrastan con `data/test_contracts/expected_changes.json`. Ver [verificación](docs/verificacion.md) para resultados y límites; [documentos de prueba](data/test_contracts/README.md) para su origen y regeneración.
+Los tres pares de prueba se contrastan con `data/test_contracts/expected_changes.json`. Ver [verificación](docs/verificacion.md) para resultados y límites; [documentos de prueba](data/test_contracts/README.md) para su origen y regeneración.
 
 ## Archivos principales
 

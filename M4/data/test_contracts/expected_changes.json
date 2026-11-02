@@ -27,5 +27,20 @@
       "Se agrega confidencialidad por 12 meses desde la firma de la adenda, para pistas y mezclas no publicadas.",
       "No cambian servicio, entregables, honorarios ni forma de pago."
     ]
+  },
+  "alquiler_sonido": {
+    "sections": [
+      "3",
+      "6"
+    ],
+    "checks": [
+      "MODIFICACIÓN: devolución del 10 al 11 de noviembre de 2026, manteniendo las 18:00 y el mismo lugar.",
+      "El retiro permanece el 10 de noviembre de 2026 a las 10:00.",
+      "ADICIÓN: cláusula 6, depósito de garantía de ARS 40.000 al retirar los equipos.",
+      "El depósito es reembolsable íntegramente dentro de las 48 horas posteriores a la devolución si no hay faltantes ni daños.",
+      "El precio total sigue siendo ARS 80.000 y no debe sumarse el depósito al precio para afirmar un aumento.",
+      "No se modifican inventario, forma de pago, estado de los equipos ni uso autorizado. No se reportan las cláusulas ratificadas 1, 2, 4 y 5 como cambios."
+    ],
+    "purpose": "Caso de otro dominio preparado después de ajustar los prompts musicales, sin modificar esos prompts para esta prueba."
   }
 }

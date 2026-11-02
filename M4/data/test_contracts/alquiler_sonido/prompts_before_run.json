@@ -1,0 +1,5 @@
+{
+  "src/image_parser.py": "e139c33cf25d3c33a0968d46f148333ad6b76606e9b8d605288381b6840d365b",
+  "src/agents/contextualization_agent.py": "178d17d103d9e3ee8e9aa7f6925adff3388cec831a2205d49b6edd8e0c5f8446",
+  "src/agents/extraction_agent.py": "ca29b52b277027c8162b6e7e09308176a583fc2a8c4764230cfcbb58bcebe2fd"
+}

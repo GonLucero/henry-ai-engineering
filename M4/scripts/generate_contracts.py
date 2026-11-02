@@ -1,4 +1,4 @@
-"""Genera cuatro imágenes de documentos ficticios, no contratos para uso real."""
+"""Genera seis imágenes de documentos ficticios, no contratos para uso real."""
 import json
 from pathlib import Path
 
@@ -87,6 +87,54 @@ Documento ficticio para pruebas académicas. No contiene firmas reales.
 """
 
 
+RENTAL_ORIGINAL = """CONTRATO DE ALQUILER DE EQUIPOS DE SONIDO
+Documento ficticio. Identificador: ALQ-001.
+Entre Sonido Río (arrendador) y Eventos Horizonte (arrendatario).
+
+1. EQUIPOS
+Se alquilan dos bafles activos, una consola de ocho canales, dos micrófonos
+y sus cables. El inventario se revisará al retirar y devolver los equipos.
+
+2. PRECIO Y PAGO
+El precio total del alquiler es de ARS 80.000. Se abona el 50% al reservar
+y el 50% restante al retirar los equipos.
+
+3. RETIRO Y DEVOLUCIÓN
+Los equipos se retiran el 10 de noviembre de 2026 a las 10:00 y deben
+devolverse el 10 de noviembre de 2026 a las 18:00 en el local del arrendador.
+
+4. ESTADO DE LOS EQUIPOS
+El arrendatario devolverá los equipos con todos sus accesorios y sin daños,
+salvo el desgaste normal del uso acordado.
+
+5. USO AUTORIZADO
+Los equipos se utilizarán en un evento privado. No se permite subalquilarlos.
+
+Documento ficticio para pruebas académicas. No contiene firmas reales.
+"""
+
+RENTAL_AMENDMENT = """ADENDA AL CONTRATO DE ALQUILER ALQ-001
+Entre Sonido Río y Eventos Horizonte.
+Esta adenda modifica únicamente la devolución y agrega un depósito de garantía.
+
+3. RETIRO Y DEVOLUCIÓN
+La fecha de devolución se modifica al 11 de noviembre de 2026 a las 18:00.
+El retiro sigue siendo el 10 de noviembre de 2026 a las 10:00.
+El lugar de devolución permanece sin cambios.
+
+6. DEPÓSITO DE GARANTÍA
+Se agrega esta cláusula: el arrendatario entregará un depósito de ARS 40.000
+al retirar los equipos. Se reintegrará íntegramente dentro de las 48 horas
+posteriores a la devolución si no se registran faltantes ni daños.
+El depósito es una garantía reembolsable y no integra el precio del alquiler.
+
+Se ratifican sin modificaciones las cláusulas 1, 2, 4 y 5. El precio total
+del alquiler continúa siendo ARS 80.000 con la misma forma de pago.
+
+Documento ficticio para pruebas académicas. No contiene firmas reales.
+"""
+
+
 def load_font(size):
     for name in ("/System/Library/Fonts/Supplemental/Arial.ttf", "DejaVuSans.ttf", "arial.ttf"):
         try:
@@ -127,10 +175,10 @@ def render_document(text, path):
 
 
 def main():
-    for case, amendment in (("simple", SIMPLE), ("complejo", COMPLEX)):
+    for case, original, amendment in (("simple", ORIGINAL, SIMPLE), ("complejo", ORIGINAL, COMPLEX), ("alquiler_sonido", RENTAL_ORIGINAL, RENTAL_AMENDMENT)):
         folder = DATA / case
         folder.mkdir(parents=True, exist_ok=True)
-        for name, text in (("original", ORIGINAL), ("adenda", amendment)):
+        for name, text in (("original", original), ("adenda", amendment)):
             (folder / (name + ".txt")).write_text(text, encoding="utf-8")
             render_document(text, folder / (name + ".png"))
     expected = {
@@ -156,8 +204,20 @@ def main():
             ],
         },
     }
+    expected["alquiler_sonido"] = {
+        "sections": ["3", "6"],
+        "checks": [
+            "MODIFICACIÓN: devolución del 10 al 11 de noviembre de 2026, manteniendo las 18:00 y el mismo lugar.",
+            "El retiro permanece el 10 de noviembre de 2026 a las 10:00.",
+            "ADICIÓN: cláusula 6, depósito de garantía de ARS 40.000 al retirar los equipos.",
+            "El depósito es reembolsable íntegramente dentro de las 48 horas posteriores a la devolución si no hay faltantes ni daños.",
+            "El precio total sigue siendo ARS 80.000 y no debe sumarse el depósito al precio para afirmar un aumento.",
+            "No se modifican inventario, forma de pago, estado de los equipos ni uso autorizado. No se reportan las cláusulas ratificadas 1, 2, 4 y 5 como cambios.",
+        ],
+        "purpose": "Caso de otro dominio preparado después de ajustar los prompts musicales, sin modificar esos prompts para esta prueba.",
+    }
     (DATA / "expected_changes.json").write_text(json.dumps(expected, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print("Generados dos pares de contratos ficticios y sus referencias esperadas.")
+    print("Generados tres pares de contratos ficticios y sus referencias esperadas.")
 
 
 if __name__ == "__main__":

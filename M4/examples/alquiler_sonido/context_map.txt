@@ -1,0 +1,17 @@
+1. Identidad y propósito de cada documento:
+   - Contrato original: Documento ALQ-001, contrato de alquiler de equipos de sonido entre Sonido Río y Eventos Horizonte. Establece los términos del alquiler, incluyendo equipos, precio, retiro y devolución, estado de los equipos y uso autorizado.
+   - Adenda: Modificación parcial del contrato ALQ-001. Cambia la fecha de devolución y agrega un depósito de garantía.
+
+2. Inventario de secciones del original:
+   - Sección 1: EQUIPOS. Propósito: Detallar los equipos alquilados y el proceso de revisión.
+   - Sección 2: PRECIO Y PAGO. Propósito: Establecer el precio total del alquiler y la forma de pago.
+   - Sección 3: RETIRO Y DEVOLUCIÓN. Propósito: Especificar las fechas y lugar de retiro y devolución de los equipos.
+   - Sección 4: ESTADO DE LOS EQUIPOS. Propósito: Condiciones de devolución de los equipos.
+   - Sección 5: USO AUTORIZADO. Propósito: Limitar el uso de los equipos al evento privado y prohibir el subalquiler.
+
+3. Correspondencias:
+   - Bloque 3 de la adenda → Sección 3 del original; propósito: retiro y devolución.
+   - Bloque 6 de la adenda → sin correspondencia en el original; propósito: depósito de garantía.
+
+4. Bloques sin correspondencia y referencias no resueltas:
+   - Bloque 6 de la adenda no tiene correspondencia en el original.

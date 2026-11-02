@@ -1,0 +1,24 @@
+CONTRATO DE ALQUILER DE EQUIPOS DE SONIDO
+Documento ficticio. Identificador: ALQ-001.
+Entre Sonido Río (arrendador) y Eventos Horizonte (arrendatario).
+
+1. EQUIPOS
+Se alquilan dos bafles activos, una consola de ocho canales, dos micrófonos
+y sus cables. El inventario se revisará al retirar y devolver los equipos.
+
+2. PRECIO Y PAGO
+El precio total del alquiler es de ARS 80.000. Se abona el 50% al reservar
+y el 50% restante al retirar los equipos.
+
+3. RETIRO Y DEVOLUCIÓN
+Los equipos se retiran el 10 de noviembre de 2026 a las 10:00 y deben
+devolverse el 10 de noviembre de 2026 a las 18:00 en el local del arrendador.
+
+4. ESTADO DE LOS EQUIPOS
+El arrendatario devolverá los equipos con todos sus accesorios y sin daños,
+salvo el desgaste normal del uso acordado.
+
+5. USO AUTORIZADO
+Los equipos se utilizarán en un evento privado. No se permite subalquilarlos.
+
+Documento ficticio para pruebas académicas. No contiene firmas reales.
