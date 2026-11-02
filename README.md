@@ -8,9 +8,9 @@ Python, APIs de OpenAI y Gemini, prompt engineering, salidas JSON, validación c
 
 ## Módulos
 
-- [M1](m1/): integración de modelos, diseño de prompts y métricas de uso.
-- [M2](m2/): procesamiento de documentos, embeddings y recuperación de información con RAG.
-- [M3](m3/): agentes especializados, orquestación y trazabilidad.
-- [M4](m4/): LegalMove, proyecto en desarrollo para comparar contratos y adendas mediante visión, dos agentes y salida estructurada.
+- [M1](M1/): integración de modelos, diseño de prompts y métricas de uso.
+- [M2](M2/): procesamiento de documentos, embeddings y recuperación de información con RAG.
+- [M3](M3/): agentes especializados, orquestación y trazabilidad.
+- [M4](M4/): LegalMove, proyecto en desarrollo para comparar contratos y adendas mediante visión, dos agentes y salida estructurada.
 
 Las credenciales se configuran localmente mediante variables de entorno y no se publican en el repositorio.
