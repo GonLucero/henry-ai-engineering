@@ -1,31 +1,38 @@
-# LegalMove — Comparación de contratos de producción musical
+# LegalMove — Comparación de contratos
 
-Aplicación de terminal que compara un contrato original con su adenda a partir de dos imágenes PNG/JPEG. Devuelve un JSON validado y un resumen breve con las secciones afectadas, los temas, los tokens y el tiempo de ejecución.
+Este proyecto recibe dos imágenes, una de un contrato y otra de su adenda, y devuelve qué cambió entre los documentos: las cláusulas afectadas, los temas y un resumen con las condiciones anteriores y nuevas.
 
-El caso de negocio es LegalMove, una empresa ficticia de tecnología legal cuyo equipo de Compliance dedica más de 40 horas semanales a comparar contratos manualmente. El sistema busca asistir esa revisión con un reporte estructurado y un recorrido auditable.
+Parte del caso LegalMove, una empresa de tecnología legal cuyo equipo de Compliance compara contratos manualmente. La idea es ayudar a encontrar los cambios y dejar registrado cómo se obtuvo el resultado para poder revisarlo.
 
-Los casos de prueba se centran en producción musical: honorarios, entregas, rondas de correcciones, uso de grabaciones y confidencialidad. Un tercer par prueba alquiler de equipos de sonido, con cambios de devolución y un depósito reembolsable. Los documentos son ficticios y fueron preparados para este proyecto.
+Elegí contratos de producción musical y alquiler de equipos de sonido para los ejemplos. Los cambios incluyen honorarios, plazos, rondas de correcciones, uso de grabaciones y depósitos de garantía. Todos los documentos de prueba son ficticios.
 
-## Arquitectura
+## Cómo funciona
 
 ```mermaid
 flowchart TD
-    A[Contrato y adenda en PNG/JPEG] --> B[Validar ambos archivos]
-    B --> C[GPT-4o: transcribir original y adenda]
-    C --> D[ContextualizationAgent: mapa de secciones]
-    C --> E[ExtractionAgent: cambios]
-    D --> E
-    E --> F[Pydantic: validar esquema]
-    F --> G[JSON y resumen en terminal]
+    A[Imagen del contrato] --> V[Validar los dos archivos]
+    B[Imagen de la adenda] --> V
+    V --> P[GPT-4o: leer cada imagen]
+    P --> C[ContextualizationAgent: relacionar secciones]
+    P --> E[ExtractionAgent: identificar cambios]
+    C -->|Mapa de secciones| E
+    E --> D[Pydantic: validar el resultado]
+    D --> R[JSON y resumen en terminal]
 ```
 
-El pipeline es secuencial y se instrumenta con Langfuse. Los agentes tienen clases y system prompts separados, implementados como cadenas de LangChain. El extractor consulta ambos textos completos y utiliza el mapa del primer agente como orientación.
+El primer agente arma una ficha con las secciones de los documentos y sus correspondencias. El segundo recibe esa ficha y los dos textos completos para identificar modificaciones, adiciones y eliminaciones. Cada uno tiene su propio system prompt y una responsabilidad distinta.
 
-## Requisitos y configuración
+| Herramienta | Para qué la uso |
+| --- | --- |
+| Python | Ejecutar el programa y conectar las etapas |
+| GPT-4o | Leer las imágenes y analizar los textos |
+| LangChain | Armar los mensajes y las llamadas de los dos agentes |
+| Pydantic | Validar los campos y tipos del resultado |
+| Langfuse | Consultar las entradas, salidas, tiempos y tokens de cada etapa |
 
-- Python 3.12, conexión a internet y Git para descargar el repositorio.
-- Una API key de OpenAI con saldo y acceso a GPT-4o.
-- Un proyecto de Langfuse Cloud con sus claves y la URL de su región.
+## Instalación
+
+Requiere Python 3.12, acceso a internet, una API key de OpenAI con saldo y un proyecto de Langfuse con sus claves.
 
 ```bash
 git clone https://github.com/GonLucero/henry-ai-engineering.git
@@ -36,7 +43,7 @@ python -m pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Completar `.env` localmente:
+Completar el archivo `.env` con las claves propias:
 
 ```dotenv
 OPENAI_API_KEY=tu-clave-de-openai
@@ -46,126 +53,147 @@ LANGFUSE_SECRET_KEY=tu-clave-secreta
 LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-La URL debe coincidir con la región del proyecto. `LANGFUSE_HOST` es el nombre indicado en la consigna. El código también acepta `LANGFUSE_BASE_URL`; si se definen ambos, usa `LANGFUSE_BASE_URL`. Las variables ya definidas en el entorno tienen prioridad sobre `.env`.
+La URL de Langfuse debe corresponder a la región del proyecto. También se acepta `LANGFUSE_BASE_URL`, que tiene prioridad cuando están definidas ambas variables. Las variables del entorno tienen prioridad sobre las del archivo `.env`.
 
-Las claves se conservan en el archivo privado `.env`. LangChain y Pydantic se instalan como bibliotecas de Python. La observabilidad de este proyecto se centraliza en Langfuse.
+`.env.example` es la plantilla para configurar el proyecto. `.env` contiene las claves reales y queda excluido de Git.
 
-Para comprobar los accesos con una llamada mínima que consume saldo:
+Para comprobar la conexión con una llamada breve que consume saldo:
 
 ```bash
 python scripts/check_connection.py
 ```
 
-## Ejecutar
+## Probar los ejemplos
 
-Desde la carpeta `M4`, con el entorno virtual activado:
+Desde `M4`, con el entorno virtual activado:
 
 ```bash
-# Caso simple: cambia únicamente el precio
+# Producción musical: cambio de precio
 python src/main.py data/test_contracts/simple/original.png data/test_contracts/simple/adenda.png
 
-# Caso complejo: modificaciones, eliminación y adición
+# Producción musical: varios cambios, una eliminación y una adición
 python src/main.py data/test_contracts/complejo/original.png data/test_contracts/complejo/adenda.png
 
-# Caso adicional: alquiler de equipos de sonido
+# Alquiler de sonido: devolución y depósito de garantía
 python src/main.py data/test_contracts/alquiler_sonido/original.png data/test_contracts/alquiler_sonido/adenda.png
 ```
 
-También acepta imágenes propias:
+| Caso | Resultado esperado |
+| --- | --- |
+| Simple | Cláusula 2: honorarios de ARS 300.000 a ARS 360.000 |
+| Complejo | Cambian las cláusulas 3, 4 y 5; se elimina la 6 y se agrega la 7 |
+| Alquiler de sonido | Cambia la devolución en la cláusula 3 y se agrega el depósito de la 6; se conserva el precio del alquiler |
+
+También probé un control con la misma imagen en ambos argumentos: el resultado esperado son listas vacías, porque las condiciones son iguales.
+
+Los documentos y los cambios esperados están en [data/test_contracts](data/test_contracts/README.md). Los resultados de las ejecuciones verificadas están en [examples](examples/README.md).
+
+Para analizar otros documentos, se pasan sus rutas al mismo comando:
 
 ```bash
 python src/main.py /ruta/contrato.png /ruta/adenda.jpg
 ```
 
-El JSON se imprime en `stdout`; el resumen humano y los errores se imprimen en `stderr`. Para guardar únicamente el JSON:
+## Qué devuelve
+
+El JSON conserva los tres nombres de campo que pide la consigna. Este es un ejemplo de formato:
+
+```json
+{
+  "sections_changed": ["2"],
+  "topics_touched": ["honorarios/precio"],
+  "summary_of_the_change": "MODIFICACIÓN. Antes: ARS 300.000. Después: ARS 360.000. Se conserva la forma de pago."
+}
+```
+
+En la terminal se muestra además un resumen con tokens, duración, costo estimado y enlace a Langfuse. El JSON sale por `stdout`; el resumen y los errores, por `stderr`. Esto permite guardar la respuesta como archivo:
 
 ```bash
 python src/main.py data/test_contracts/simple/original.png data/test_contracts/simple/adenda.png > resultado.json
 ```
 
-`--json-only` omite el resumen humano. `--output-dir carpeta` cambia dónde se guardan las ejecuciones. Cada ejecución exitosa crea una carpeta nueva con `report.json`, las dos transcripciones, `context_map.txt` y `run.json` con métricas y enlace a Langfuse. `outputs/` está excluida de Git.
+Cada ejecución exitosa crea una carpeta dentro de `outputs/`:
 
-El JSON final tiene exactamente estos campos:
+| Archivo | Contenido |
+| --- | --- |
+| `original_text.txt` | Transcripción de la imagen original |
+| `amendment_text.txt` | Transcripción de la adenda |
+| `context_map.txt` | Ficha de secciones del primer agente |
+| `report.json` | Resultado final validado |
+| `run.json` | Tokens, duración, costo estimado y datos del registro en Langfuse |
 
-```json
-{
-  "sections_changed": ["2"],
-  "topics_touched": ["honorarios"],
-  "summary_of_the_change": "MODIFICACIÓN: los honorarios pasan de ARS 300.000 a ARS 360.000."
-}
-```
+`--json-only` omite el resumen de terminal. `--output-dir carpeta` permite elegir dónde guardar las ejecuciones. `outputs/` queda excluida de Git.
 
-Este bloque muestra el formato; las salidas de las pruebas reales se encuentran en `examples/`.
+## Decisiones que tomé
 
-## Decisiones técnicas
+- **Dos agentes con tareas separadas.** Uno relaciona las secciones y el otro compara las condiciones. Así puedo revisar en qué etapa empezó un error. La comparación de precisión frente a un solo agente queda como evaluación futura.
+- **Los textos completos llegan al extractor.** El mapa sirve de orientación; cada cambio se comprueba con los documentos de origen.
+- **GPT-4o en todo el flujo.** Es el modelo solicitado para visión y mantuve el mismo en los agentes para simplificar la configuración.
+- **Instrucciones afirmativas.** Los prompts describen qué debe producir cada etapa y en qué evidencia apoyarse. El agente de contextualización sigue un formato de ficha para mantener su tarea separada de la extracción.
+- **Salida estructurada y Pydantic.** El extractor usa structured outputs y el programa vuelve a validar el resultado. Se comprueban campos, tipos, textos vacíos y duplicados. La exactitud del contenido se revisa contra los documentos.
+- **Adendas parciales.** Las cláusulas omitidas conservan su vigencia. Una eliminación requiere evidencia explícita o una sustitución íntegra inequívoca.
+- **Validación antes de gastar en la API.** Se revisan ambos archivos: extensión, formato real, integridad y tamaño máximo de 10 MB.
 
-- **GPT-4o:** se usa en visión y en ambos agentes para mantener una configuración única y cumplir el modelo solicitado para el parsing. La elección prioriza el alcance de esta entrega; una comparación de modelos queda como evaluación futura.
-- **Dos responsabilidades:** el primer agente alinea documentos y el segundo audita cambios. Esto permite inspeccionar cada etapa por separado. La comparación frente a un único agente queda como evaluación futura.
-- **LangChain:** organiza los prompts y las llamadas de ambos agentes. El alcance se resuelve con un flujo fijo sobre los dos documentos recibidos.
-- **Pydantic y structured outputs:** el extractor usa el esquema del proveedor y se vuelve a validar el resultado en el pipeline. Se rechazan campos adicionales, tipos incorrectos, textos vacíos y duplicados. La exactitud del contenido se revisa contra los documentos originales.
-- **Prompts especializados:** instrucciones afirmativas que definen la salida de cada etapa: transcripción literal, mapa de correspondencias y auditoría respaldada por los textos. El mensaje de sistema define la tarea y los documentos aportan la evidencia. Los prompts están en los archivos de cada componente.
-- **Adendas parciales:** las secciones omitidas conservan su vigencia. Una eliminación requiere una instrucción explícita o una sustitución íntegra inequívoca.
-- **Errores:** se comprueban extensión, formato real, tamaño máximo de 10 MB e integridad de ambas imágenes antes de llamar al modelo. Un texto marcado `[ILEGIBLE]`, una respuesta truncada o un rechazo detienen el análisis. Ante errores, el programa informa la causa y termina con un código de salida distinto de cero.
-- **Límites:** timeout de 60 segundos por llamada y un reintento de transporte mediante los clientes. Los reintentos se limitan a la llamada afectada. Visión tiene un máximo de 4000 tokens de salida; cada agente, 3000. Los textos combinados se limitan localmente a 50.000 caracteres.
+Las llamadas tienen un timeout de 60 segundos y un reintento de transporte. Una respuesta truncada, rechazada o marcada como `[ILEGIBLE]` detiene el análisis con un mensaje de error.
 
-## Langfuse
+## Revisar una ejecución en Langfuse
 
-Langfuse registra automáticamente las etapas del análisis, sus entradas, salidas, tokens y duración. La instrumentación de Python genera esta jerarquía:
+Cada ejecución tiene un registro completo, llamado **traza**. El enlace aparece al terminar el comando. Dentro se pueden abrir las etapas y revisar qué recibió y devolvió cada una:
 
 ```text
 contract-analysis
 ├── validate_images
 ├── parse_original_contract
-│   └── vision_transcription [generation]
+│   └── vision_transcription
 ├── parse_amendment_contract
-│   └── vision_transcription [generation]
+│   └── vision_transcription
 ├── contextualization_agent
-│   └── contextualization_llm [generation]
+│   └── contextualization_llm
 ├── extraction_agent
-│   └── extraction_llm [generation]
+│   └── extraction_llm
 └── output_validation
 ```
 
-Cada etapa conserva entrada, salida y duración. Las generaciones incluyen modelo y tokens. Las imágenes en base64 y las claves no se registran en las trazas: visión registra el nombre, formato, dimensiones, hash y prompt. Los textos y reportes sí se envían a Langfuse; las imágenes se envían a OpenAI. Usar documentos ficticios para la demo.
+Las cuatro llamadas al modelo registran modelo, tokens y duración. Las etapas guardan sus entradas y salidas. El programa termina de enviar los registros con `flush()` antes de salir.
 
-El envío es asíncrono y se llama a `flush()` antes de salir. La recepción remota se comprueba desde el dashboard o con:
+También se puede comprobar la recepción de una ejecución desde la terminal:
 
 ```bash
 python scripts/check_trace.py outputs/NOMBRE_DE_LA_EJECUCION
 ```
 
-El script consulta solamente esa traza y comprueba la raíz, la jerarquía, las cuatro generaciones, entradas/salidas y tokens.
+OpenAI recibe las imágenes. Langfuse recibe los textos y los resultados; para las imágenes se registran metadatos, en lugar del contenido base64. Las claves permanecen en la configuración privada.
 
-## Pruebas
+## Pruebas y resultados
 
 ```bash
-# Offline: no utiliza claves ni consume saldo
 python -m pytest -q
 ```
 
-Los tests cubren validación de datos, archivos corruptos o incompatibles, respuestas incompletas, el traspaso del mapa y ambos textos al extractor, y separación entre JSON y resumen de terminal. No miden exactitud semántica del modelo.
+La última verificación completó **22 tests offline**, que se ejecutan sin claves ni consumo de API. Cubren validación de datos e imágenes, respuestas incompletas, el paso de información entre agentes y la salida del programa.
 
-Los tres pares de prueba se contrastan con `data/test_contracts/expected_changes.json`. Ver [verificación](docs/verificacion.md) para resultados y límites; [documentos de prueba](data/test_contracts/README.md) para su origen y regeneración.
+Además se ejecutaron los tres pares y el control con imágenes idénticas usando GPT-4o. Se revisaron los cambios contra los documentos y se verificaron sus registros en Langfuse. Después de reformular los prompts se repitieron los cuatro casos.
 
-## Archivos principales
+El detalle, las métricas y las diferencias observadas están en [verificación](docs/verificacion.md).
 
-| Archivo | Responsabilidad |
-| --- | --- |
-| `src/main.py` | Argumentos, salida JSON, resumen y archivos de ejecución |
-| `src/config.py` | Configuración y variables de entorno |
-| `src/image_parser.py` | Validación, base64 y llamada multimodal |
-| `src/agents/contextualization_agent.py` | Mapa de secciones con LangChain |
-| `src/agents/extraction_agent.py` | Extracción estructurada con LangChain |
-| `src/models.py` | Contrato Pydantic de los tres campos |
-| `src/pipeline.py` | Orden de las etapas y paso de información |
-| `src/runtime.py` | Clientes, spans, generaciones y métricas |
-| `scripts/generate_contracts.py` | Generación reproducible de imágenes ficticias |
-| `tests/test_core.py` | Regresiones offline |
+## Dónde está cada parte
 
-## Alcance
+- `src/main.py`: entrada por terminal, JSON, resumen y archivos de resultados.
+- `src/image_parser.py`: validación, base64 y lectura de imágenes.
+- `src/agents/`: contextualización y extracción, con sus prompts.
+- `src/models.py`: esquema Pydantic de salida.
+- `src/pipeline.py`: orden de ejecución y paso de información.
+- `src/runtime.py`: clientes, métricas y registros de Langfuse.
+- `src/config.py`: carga de variables de entorno.
+- `scripts/`: generación de imágenes y comprobación de conexiones y registros.
+- `tests/`: pruebas offline.
 
-Un archivo de imagen por documento. No incluye PDF multipágina, audio, MCP, interfaz web ni evaluación de contratos reales. Los ejemplos nítidos no establecen precisión en documentos borrosos, manuscritos o extensos. Los prompts no garantizan protección frente a toda inyección y el resultado requiere revisión humana; no es asesoramiento legal.
+## Alcance y límites
 
-El costo local es una estimación basada en tokens a tarifa de referencia de GPT-4o: USD 2,50 por millón de entrada y USD 10 por millón de salida. No descuenta caché ni incluye llamadas fallidas que no devuelven uso; consultar la facturación real para el gasto definitivo.
+La entrada es una imagen PNG/JPEG por documento. El alcance actual se concentra en los ejemplos ficticios incluidos; quedan pendientes las pruebas con documentos extensos, varias páginas, manuscritos y fotos degradadas.
 
-La [guía para recorrer y defender el proyecto](docs/defensa.md) explica cada componente y propone una demo.
+Visión puede introducir variaciones de lectura: en los ejemplos musicales apareció “portafolio” donde la imagen decía “portfolio”. Pydantic valida la estructura y la revisión humana confirma el contenido. El reporte sirve como apoyo a la comparación, con la revisión jurídica a cargo de una persona.
+
+El costo mostrado es una estimación local basada en tokens a tarifa de referencia de GPT-4o. La facturación del proveedor es la referencia definitiva, ya que puede aplicar descuentos o incluir llamadas fallidas.
+
+Para recorrer el código y preparar la demostración, dejé una [guía de defensa](docs/defensa.md).
