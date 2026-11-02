@@ -1,6 +1,6 @@
 # AI Engineering — Henry
 
-Repositorio de Gonzalo Lucero dedicado a ingeniería de aplicaciones con modelos de lenguaje, desarrollado en el marco de la carrera de AI Engineering de Henry, cohorte PT06.
+Este repositorio esta dedicado a diferentes modulos de ingeniería de aplicaciones con modelos de lenguaje, desarrollado en el marco de la carrera de AI Engineering de Henry, cohorte PT06.
 
 El recorrido abarca integración con APIs, generación de respuestas estructuradas, recuperación de información y coordinación de agentes. El foco es conectar estas herramientas con problemas concretos y evaluar tanto la calidad de las respuestas como el comportamiento del sistema.
 
