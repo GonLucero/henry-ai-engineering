@@ -1,4 +1,3 @@
-```plaintext
 ADENDA 1 - ACTUALIZACIÓN DE HONORARIOS
 Referencia: contrato MUS-001, proyecto EP Horizonte.
 Estudio Río y Artista Horizonte acuerdan modificar únicamente la cláusula 2.
@@ -11,4 +10,3 @@ al recibir los archivos finales.
 Las demás cláusulas del contrato MUS-001 permanecen vigentes sin cambios.
 
 Documento ficticio para pruebas académicas. No contiene firmas reales.
-```

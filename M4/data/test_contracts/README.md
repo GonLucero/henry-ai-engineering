@@ -1,6 +1,6 @@
 # Documentos de prueba — producción musical y alquiler de sonido
 
-Los documentos son ficticios y se generaron específicamente para este proyecto. No provienen de contratos reales ni de entregas de otros estudiantes. No constituyen modelos jurídicos para firmar.
+Documentos ficticios creados para probar el pipeline. Los nombres, importes y condiciones forman parte de los casos de evaluación académica.
 
 | Caso | Original | Adenda | Resultado esperado |
 | --- | --- | --- | --- |
@@ -14,7 +14,7 @@ Los `.txt` son las fuentes usadas para generar las imágenes y permiten revisar 
 
 `expected_changes.json` contiene criterios de revisión preparados antes de ejecutar el modelo. La numeración puede aparecer en el reporte como `3` o `Cláusula 3`; se revisa el significado, no una redacción exacta.
 
-El caso de alquiler ALQ-001 se preparó después de ajustar los prompts musicales. Sus cambios esperados se definieron antes de ejecutarlo y los prompts se mantuvieron intactos. `alquiler_sonido/prompts_before_run.json` registra las huellas de los tres archivos de prompts anteriores a esa prueba. No es un conjunto de evaluación independiente a gran escala, sino un caso adicional de otro tipo de contrato.
+El caso de alquiler ALQ-001 se preparó después de ajustar los prompts musicales. Sus cambios esperados se definieron antes de ejecutarlo y los prompts se mantuvieron intactos. `alquiler_sonido/prompts_before_run.json` registra las huellas de los tres archivos de prompts anteriores a esa primera prueba. Esa evidencia es histórica; la reformulación posterior con instrucciones afirmativas se documenta en `../../docs/verificacion.md`. No es un conjunto de evaluación independiente a gran escala, sino un caso adicional de otro tipo de contrato.
 
 Para regenerar las seis imágenes:
 

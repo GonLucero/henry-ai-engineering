@@ -1,22 +1,26 @@
-1. Identidad y propósito de cada documento:
-   - Contrato original: Es un contrato de producción musical para el proyecto ficticio "EP Horizonte" entre Estudio Río (productor) y Artista Horizonte (artista), identificado como MUS-001. Establece los términos y condiciones para la grabación, mezcla y mastering de tres canciones.
-   - Adenda: Es un documento que parece replicar el contrato original en su totalidad, sin cambios aparentes. No se puede determinar si es una adenda parcial o una versión completa que reemplaza al original, ya que no hay diferencias identificables.
+DOCUMENTOS
+Original: CONTRATO DE PRODUCCIÓN MUSICAL; identificador: MUS-001; partes: Estudio Río, Artista Horizonte.
+Adenda: CONTRATO DE PRODUCCIÓN MUSICAL; identificador de referencia: MUS-001; partes: Estudio Río, Artista Horizonte.
+Alcance de la adenda: versión completa sustitutiva.
 
-2. Inventario de secciones del original:
-   - Sección 1: SERVICIO Y ENTREGABLES. Propósito: Detallar los servicios de grabación, mezcla y mastering, y los entregables en formato de archivos WAV.
-   - Sección 2: HONORARIOS Y FORMA DE PAGO. Propósito: Establecer el precio total y las condiciones de pago.
-   - Sección 3: PLAZO DE ENTREGA. Propósito: Definir el plazo para la entrega de los archivos finales.
-   - Sección 4: REVISIONES. Propósito: Especificar las condiciones para las rondas de correcciones de mezcla.
-   - Sección 5: TITULARIDAD Y USO DEL MATERIAL. Propósito: Determinar la titularidad de las grabaciones y las condiciones para el uso del material por parte del productor.
-   - Sección 6: CANCELACIÓN. Propósito: Establecer las condiciones en caso de cancelación del contrato por parte del artista.
+SECCIONES DEL ORIGINAL
+1 | SERVICIO Y ENTREGABLES | ámbito: servicio y entregables.
+2 | HONORARIOS Y FORMA DE PAGO | ámbito: honorarios y forma de pago.
+3 | PLAZO DE ENTREGA | ámbito: plazo de entrega.
+4 | REVISIONES | ámbito: revisiones.
+5 | TITULARIDAD Y USO DEL MATERIAL | ámbito: titularidad y uso del material.
+6 | CANCELACIÓN | ámbito: cancelación.
 
-3. Correspondencias:
-   - Bloque 1 de la adenda → Sección 1 del original; propósito: servicio y entregables.
-   - Bloque 2 de la adenda → Sección 2 del original; propósito: honorarios y forma de pago.
-   - Bloque 3 de la adenda → Sección 3 del original; propósito: plazo de entrega.
-   - Bloque 4 de la adenda → Sección 4 del original; propósito: revisiones.
-   - Bloque 5 de la adenda → Sección 5 del original; propósito: titularidad y uso del material.
-   - Bloque 6 de la adenda → Sección 6 del original; propósito: cancelación.
+CORRESPONDENCIAS
+1 → 1 | ámbito: servicio y entregables.
+2 → 2 | ámbito: honorarios y forma de pago.
+3 → 3 | ámbito: plazo de entrega.
+4 → 4 | ámbito: revisiones.
+5 → 5 | ámbito: titularidad y uso del material.
+6 → 6 | ámbito: cancelación.
 
-4. Bloques sin correspondencia y referencias no resueltas:
-   - No hay bloques sin correspondencia ni referencias no resueltas, ya que la adenda replica el contrato original en su totalidad.
+BLOQUES EXCLUSIVOS
+ninguno
+
+REFERENCIAS PENDIENTES
+ninguna

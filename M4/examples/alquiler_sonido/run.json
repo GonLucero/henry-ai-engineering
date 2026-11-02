@@ -1,35 +1,35 @@
 {
-  "trace_id": "672c4d1223c28cb4ddc277bb4e530217",
-  "trace_url": "https://cloud.langfuse.com/project/cmvysd7t802gkad0iwtelon2m/traces/672c4d1223c28cb4ddc277bb4e530217",
+  "trace_id": "3290a6ca0b89dd632711b89abcf03e20",
+  "trace_url": "https://cloud.langfuse.com/project/cmvysd7t802gkad0iwtelon2m/traces/3290a6ca0b89dd632711b89abcf03e20",
   "input_tokens": 4986,
-  "output_tokens": 1041,
-  "total_tokens": 6027,
-  "estimated_cost_usd": 0.022875,
+  "output_tokens": 941,
+  "total_tokens": 5927,
+  "estimated_cost_usd": 0.021875,
   "calls": [
     {
       "stage": "vision_transcription",
       "model": "gpt-4o",
-      "input": 1288,
-      "output": 261
+      "input": 1285,
+      "output": 266
     },
     {
       "stage": "vision_transcription",
       "model": "gpt-4o",
-      "input": 1288,
-      "output": 245
+      "input": 1285,
+      "output": 241
     },
     {
       "stage": "contextualization_llm",
       "model": "gpt-4o",
-      "input": 867,
-      "output": 335
+      "input": 1007,
+      "output": 229
     },
     {
       "stage": "extraction_llm",
       "model": "gpt-4o",
-      "input": 1543,
-      "output": 200
+      "input": 1409,
+      "output": 205
     }
   ],
-  "latency_ms": 13110
+  "latency_ms": 12198
 }

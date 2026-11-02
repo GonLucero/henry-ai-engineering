@@ -1,4 +1,4 @@
-"""Genera seis imágenes de documentos ficticios, no contratos para uso real."""
+"""Genera las imágenes de los tres casos de prueba."""
 import json
 from pathlib import Path
 

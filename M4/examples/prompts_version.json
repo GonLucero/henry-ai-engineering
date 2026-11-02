@@ -1,0 +1,15 @@
+{
+  "style": "instrucciones afirmativas",
+  "source_sha256": {
+    "src/image_parser.py": "eb69df55cd6f5d77579cbc7df1e387faba76984f8d82cb37104af03c1ac32b6d",
+    "src/agents/contextualization_agent.py": "72e6ede5ef6b1ea52a881b48303699ef89f8a20ce10557e75b0f235d03bc24bd",
+    "src/agents/extraction_agent.py": "97b0071ed32c1a096fa109b1f956f75b5c86a416e7ab693dd68b97b12f5dbfb0",
+    "src/models.py": "c1e378a4d66ed7d7fa18c3df4a52546b7fc16118f3e10b09de3102aadf1c297b"
+  },
+  "runs": {
+    "simple": "outputs/prompts_afirmativos_finales/20261102T200456Z_3f90cb4d",
+    "complejo": "outputs/prompts_afirmativos_finales/20261102T200524Z_797a6167",
+    "alquiler_sonido": "outputs/prompts_afirmativos_finales/20261102T200550Z_658cf096",
+    "sin_cambios": "outputs/prompts_afirmativos_finales/20261102T200613Z_f7d25848"
+  }
+}

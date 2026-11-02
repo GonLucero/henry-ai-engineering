@@ -8,7 +8,7 @@ class ContractChangeOutput(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
     sections_changed: List[str] = Field(
-        description="Identificadores de las secciones modificadas, agregadas o eliminadas; lista vacía si no hay cambios."
+        description="Identificadores de las secciones modificadas, agregadas o eliminadas; lista vacía cuando las condiciones contractuales se mantienen."
     )
     topics_touched: List[str] = Field(
         description="Temas contractuales afectados por los cambios, en español."

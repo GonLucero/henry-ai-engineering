@@ -1,4 +1,4 @@
-"""Configuración local; las claves nunca se imprimen ni se versionan."""
+"""Configuración local y carga de credenciales desde el entorno."""
 import os
 from pathlib import Path
 

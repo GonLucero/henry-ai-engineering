@@ -1,5 +1,5 @@
 {
-  "trace_id": "fdca6ed1989e5c933534da8ac95a0981",
+  "trace_id": "7b700804affa43596abd3c31c5d24702",
   "verified": true,
   "observations": 11,
   "model_generations": 4,
@@ -16,41 +16,41 @@
       "name": "extraction_llm",
       "model": "gpt-4o",
       "usage": {
-        "input": 1597,
-        "output": 112,
-        "total": 1709
+        "input": 1352,
+        "output": 100,
+        "total": 1452
       },
-      "latency_seconds": 1.839
+      "latency_seconds": 2.29
     },
     {
       "name": "contextualization_llm",
       "model": "gpt-4o",
       "usage": {
-        "input": 823,
-        "output": 432,
-        "total": 1255
+        "input": 962,
+        "output": 217,
+        "total": 1179
       },
-      "latency_seconds": 3.688
+      "latency_seconds": 3.588
     },
     {
       "name": "vision_transcription",
       "model": "gpt-4o",
       "usage": {
-        "input": 1288,
+        "input": 1285,
         "output": 138,
-        "total": 1426
+        "total": 1423
       },
-      "latency_seconds": 2.104
+      "latency_seconds": 2.013
     },
     {
       "name": "vision_transcription",
       "model": "gpt-4o",
       "usage": {
-        "input": 1288,
+        "input": 1285,
         "output": 324,
-        "total": 1612
+        "total": 1609
       },
-      "latency_seconds": 3.043
+      "latency_seconds": 3.98
     }
   ]
 }

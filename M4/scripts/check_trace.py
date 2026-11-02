@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 import sys
+from time import sleep
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from langfuse import Langfuse
@@ -32,10 +33,16 @@ def main():
             public_key=settings["langfuse_public_key"], secret_key=settings["langfuse_secret_key"],
             base_url=settings["langfuse_base_url"], timeout=15,
         )
-        response = client.api.observations.get_many(
-            trace_id=info["trace_id"], fields="core,basic,io,model,usage,metrics", limit=100,
-        )
-        observations = [item.model_dump(by_alias=True, mode="json") for item in response.data]
+        # El envío de trazas es asíncrono; damos un margen acotado a su aparición.
+        for attempt in range(6):
+            response = client.api.observations.get_many(
+                trace_id=info["trace_id"], fields="core,basic,io,model,usage,metrics", limit=100,
+            )
+            observations = [item.model_dump(by_alias=True, mode="json") for item in response.data]
+            if len(observations) >= 11 and all(item.get("endTime") for item in observations):
+                break
+            if attempt < 5:
+                sleep(2)
         roots = [item for item in observations if item.get("name") == "contract-analysis" and not item.get("parentObservationId")]
         if len(roots) != 1:
             raise ValueError("No se encontró exactamente una raíz contract-analysis")

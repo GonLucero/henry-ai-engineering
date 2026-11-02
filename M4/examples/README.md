@@ -1,17 +1,18 @@
 # Ejemplos de ejecuciones reales
 
-Estas carpetas conservan salidas de los casos musicales simple y complejo, del alquiler de sonido y de un control negativo con dos imágenes idénticas, con GPT-4o para visión y ambos agentes. No son respuestas simuladas.
+Resultados de los tres pares de imágenes y del control con documentos idénticos, obtenidos con los prompts afirmativos actuales y GPT-4o para visión y ambos agentes.
 
-Cada carpeta contiene el reporte validado, las dos transcripciones, el mapa contextual y las métricas locales. Para facilitar la lectura de cambios en Git, se quitaron espacios al final de las líneas de los archivos de texto; las salidas originales se conservan en `outputs/`. `trace_audit.json` registra la comprobación de recepción remota y jerarquía realizada mediante la API de Langfuse. Los identificadores no hacen públicas las trazas: su consulta requiere acceso al proyecto.
+| Carpeta | Qué comprueba |
+| --- | --- |
+| `simple/` | Cambio de honorarios en una cláusula |
+| `complejo/` | Modificaciones, eliminación y adición en varias cláusulas |
+| `alquiler_sonido/` | Cambio de devolución y nuevo depósito reembolsable, conservando el precio |
+| `sin_cambios/` | Listas vacías cuando se compara el mismo documento consigo mismo |
 
-Los criterios preparados antes de las ejecuciones están en `data/test_contracts/expected_changes.json`. Los resultados y las limitaciones observadas están en `docs/verificacion.md`.
+Cada carpeta conserva el reporte validado, las transcripciones, la ficha de correspondencias, las métricas y la comprobación remota de Langfuse. En los textos versionados se quitaron espacios finales para facilitar la lectura de cambios; las salidas originales se conservan en `outputs/`.
 
-Una nueva llamada al modelo puede producir otra redacción y otro consumo. Estos ejemplos no garantizan precisión sobre otros documentos.
+`prompts_version.json` registra las huellas de los archivos que contienen los prompts y las ejecuciones asociadas. Los criterios esperados se encuentran en `data/test_contracts/expected_changes.json`.
 
-## Control sin cambios
+El caso de alquiler se probó por primera vez antes de esta reformulación; su evidencia histórica permanece en Git. Los ejemplos actuales corresponden a la nueva revisión de los tres pares, con la misma redacción afirmativa de los prompts para todos ellos.
 
-`sin_cambios/` usa `data/test_contracts/simple/original.png` en ambos argumentos. No es una adenda real: permite comprobar que el sistema no fabrique diferencias ante documentos idénticos. Devolvió listas vacías y se verificó su traza remota.
-
-## Alquiler de sonido
-
-`alquiler_sonido/` conserva la primera ejecución de este nuevo par. Se definieron los cambios esperados y se registraron las huellas de los prompts antes de probarlo. Sin ajustarlos, el reporte identificó únicamente las secciones 3 y 6. No confundió el depósito reembolsable con un aumento de precio.
+Las trazas requieren acceso al proyecto de Langfuse. Los resultados de nuevas llamadas pueden variar. El informe de comprobación está en `docs/verificacion.md`.

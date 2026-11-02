@@ -1,93 +1,71 @@
-# Verificación — 2 de noviembre de 2026
+# Verificación — revisión con prompts afirmativos
 
-## Entorno y pruebas de código
+Fecha: 2 de noviembre de 2026. Entorno: Python 3.12.16, con las dependencias fijadas en `requirements.txt`.
 
-Python 3.12.16. Dependencias directas fijadas en `requirements.txt`; se comprobó la compatibilidad de los paquetes instalados. La ejecución offline final completó 22 tests sin llamadas al modelo.
+## Qué se modificó
 
-## Ejecuciones con imágenes
+Se reformularon las instrucciones de visión y ambos agentes para definir de forma afirmativa la tarea, las fuentes y el formato de salida. El contexto se organiza como una ficha de documentos, secciones, correspondencias, bloques exclusivos y referencias pendientes. La extracción conserva la comparación Antes/Después y los tres campos públicos.
 
-Se ejecutaron los dos pares musicales completos usando GPT-4o en las cuatro llamadas por ejecución: dos transcripciones, contextualización y extracción. Los ejemplos conservados corresponden a los prompts finales.
+Las condiciones de los contratos permanecen intactas, incluidas sus negaciones. Los identificadores de los campos públicos también se conservan. Se simplificaron la descripción del generador y la explicación de Langfuse en el README.
 
-| Caso | Secciones reportadas | Tokens totales | Duración del pipeline | Costo estimado |
+## Pruebas de código
+
+La revisión final completó 22 tests offline. Cubren validación, archivos corruptos o incompatibles, transcripciones incompletas, traspaso de mapa y textos, salida JSON y manejo de fallos. La comprobación de contenido de las respuestas requiere la revisión adicional descrita abajo.
+
+## Resultados con el modelo
+
+Cada ejecución incluye dos transcripciones, contextualización y extracción. Las cuatro ejecuciones finales conservaron los resultados esperados.
+
+| Caso | Secciones reportadas | Tokens | Duración | Costo estimado |
 | --- | --- | --- | --- | --- |
-| Simple | 2 | 6002 | 10.7 s | USD 0.0226 |
-| Complejo | 3, 4, 5, 6, 7 | 6935 | 13.9 s | USD 0.0286 |
+| simple | 2 | 5663 | 11.9 s | USD 0.0200 |
+| complejo | 3, 4, 5, 6, 7 | 6573 | 12.5 s | USD 0.0259 |
+| alquiler_sonido | 3, 6 | 5927 | 12.2 s | USD 0.0219 |
+| sin_cambios | ninguna | 6260 | 10.5 s | USD 0.0228 |
 
-Los valores de costo son estimaciones locales sin descuentos de caché ni reintentos fallidos; no son un comprobante de facturación.
+### Revisión de contenido
 
-### Revisión del caso simple
+- Simple: cláusula 2, ARS 300.000 → ARS 360.000; conserva el pago 50%/50%.
+- Complejo: cláusulas 3, 4 y 5 modificadas; cláusula 6 eliminada; cláusula 7 agregada. Preserva los valores anteriores/nuevos y las condiciones de uso del material, cancelación y confidencialidad.
+- Alquiler: cláusula 3, devolución del 10 al 11 de noviembre de 2026 a las 18:00; cláusula 6, depósito de ARS 40.000 con reintegro dentro de 48 horas si se cumplen las condiciones indicadas. Conserva retiro y lugar. Distingue depósito y precio de alquiler.
+- Control con documentos idénticos: listas vacías y resumen que indica equivalencia contractual.
 
-- Reporta únicamente la cláusula 2.
-- Identifica precio anterior ARS 300.000 y nuevo ARS 360.000.
-- Conserva la forma de pago 50% al inicio y 50% al entregar.
-- No considera eliminadas las cláusulas no mencionadas.
+También se revisaron las fichas de los tres pares: contienen identidad, inventario, correspondencias y etiquetas temáticas. La descripción de cambios queda a cargo del segundo agente.
 
-### Revisión del caso complejo
+## Fidelidad de visión
 
-- Identifica las cláusulas 3, 4, 5, 6 y 7.
-- Compara 30 y 45 días corridos desde el mismo punto de inicio.
-- Compara dos y tres rondas, y siete y diez días para pedir cada ronda.
-- Conserva en el resumen la titularidad del artista y distingue el permiso anterior de la nueva prohibición de publicar fragmentos o usar grabaciones en portfolio.
-- Reporta la eliminación explícita de cancelación, sin inventar una cláusula alternativa.
-- Reporta la incorporación de confidencialidad por 12 meses desde la firma, sobre pistas y mezclas no publicadas.
-- No atribuye cambios a las cláusulas 1 y 2. La ausencia de una mención a nuevas grabaciones en el resumen no implica que haya cambiado la exclusión original.
+Se contrastaron las transcripciones finales con las fuentes del generador. El pipeline recibe las imágenes; las fuentes `.txt` sirven como referencia de revisión.
 
-El campo de temas del caso complejo usa la categoría compuesta “titularidad y uso del material”. La titularidad en sí no cambia; el resumen sí lo distingue. Es una limitación de granularidad de la categorización, no una modificación de titularidad.
-
-## Fidelidad de la transcripción
-
-Se contrastaron las fuentes `.txt` del generador y los textos leídos de las imágenes. No se usaron las fuentes de texto como entrada del pipeline.
-
-| Documento | Comparación |
+| Documento | Resultado |
 | --- | --- |
-| Simple / original | Presenta diferencias; ver nota de transcripción |
-| Simple / adenda | Presenta diferencias; ver nota de transcripción |
-| Complejo / original | Presenta diferencias; ver nota de transcripción |
-| Complejo / adenda | Coincide al ignorar espacios y saltos de línea |
+| simple / original | Variación léxica: portfolio → portafolio |
+| simple / adenda | Coincide al ignorar espacios y saltos de línea |
+| complejo / original | Variación léxica: portfolio → portafolio |
+| complejo / adenda | Coincide al ignorar espacios y saltos de línea |
+| alquiler_sonido / original | Coincide al ignorar espacios y saltos de línea |
+| alquiler_sonido / adenda | Coincide al ignorar espacios y saltos de línea |
 
-En los originales se observó la sustitución de “portfolio” por “portafolio”, aun con una instrucción de transcripción literal. No altera las condiciones del ejemplo, pero demuestra que no debe afirmarse una transcripción idéntica carácter por carácter. La adenda compleja coincide al ignorar espacios y saltos de línea. La transcripción de la adenda simple agregó marcas Markdown de apertura y cierre de un bloque de código, aunque el texto contractual dentro del bloque coincide al ignorar espacios. El parser conserva esas marcas en la evidencia; no alteraron los cambios detectados en este caso. Ningún resultado de estos dos casos mide precisión general en documentos reales.
+En las transcripciones de los originales musicales persiste la variante “portafolio” para el texto fuente “portfolio”. Los importes, fechas y condiciones revisados se mantienen. En esta revisión final las adendas se transcribieron sin las marcas Markdown observadas en una ejecución anterior. Estas observaciones describen los casos preparados y requieren evaluación adicional para generalizar a otros documentos.
 
-## Trazas remotas
+## Langfuse
 
-Se consultaron las dos trazas finales mediante la API de Langfuse y se comprobaron:
+Se verificaron remotamente las cuatro ejecuciones finales:
 
-- Una raíz `contract-analysis`.
-- Seis etapas hijas: validación de imágenes, ambas transcripciones, contextualización, extracción y validación de salida.
-- Cuatro generaciones, cada una bajo la etapa correcta.
-- Entradas, salidas, modelo, tokens y cierre de las observaciones, sin nivel ERROR.
+- Una raíz `contract-analysis` y seis etapas hijas.
+- Cuatro generaciones bajo sus etapas correspondientes.
+- Entradas, salidas, modelo, tokens y cierre de observaciones.
+- Estado de las observaciones compatible con una ejecución exitosa.
 
-Los mapas finales organizan correspondencias sin enumerar importes anteriores/nuevos ni redactar el reporte de cambios. La etapa de extracción recibe el mapa y los textos completos.
+La verificación usa un margen de espera acotado para que aparezcan los registros enviados en segundo plano. Los archivos `trace_audit.json` de cada ejemplo conservan las comprobaciones.
 
-Los registros de comprobación se guardaron junto a los ejemplos como `trace_audit.json`. No se reemplaza la demostración del dashboard durante la defensa.
+## Iteración y costo
 
-## Iteraciones de desarrollo
+La primera formulación afirmativa conservó los reportes esperados, pero algunas salidas del primer agente incluían cambios. Se precisó la ficha estructural y se repitieron los cuatro casos. Las comprobaciones finales respaldan la separación de responsabilidades en estos ejemplos.
 
-Se ajustaron los prompts después de observar temas demasiado amplios, un resumen que abreviaba una prohibición y correspondencias que describían operaciones de cambio. Se repitieron los casos afectados. También se reforzó la literalidad de visión; la variación léxica indicada arriba persiste.
+El costo local estimado de las cuatro ejecuciones finales fue USD 0.0906. Incluyendo la primera iteración de esta reformulación, fue USD 0.1920. Son estimaciones de tokens a tarifa de referencia; la facturación definitiva depende del proveedor.
 
-En total quedaron registradas 10 ejecuciones completas de desarrollo, incluido el control sin cambios y el caso de alquiler, con un costo local estimado acumulado de USD 0.2497, además de la prueba mínima de conexión.
+## Evidencia histórica y alcance
 
-## Tercer par: alquiler de equipos de sonido
+El archivo `data/test_contracts/alquiler_sonido/prompts_before_run.json` corresponde a la primera prueba de alquiler, realizada antes de reformular los prompts. Los hashes de la versión actual y sus ejemplos se encuentran en `examples/prompts_version.json`. Las versiones previas de resultados y documentación permanecen en el historial Git.
 
-Se preparó el contrato ALQ-001 después de ajustar los prompts musicales, con cambios esperados definidos antes de la ejecución y huellas de los prompts registradas en `data/test_contracts/alquiler_sonido/prompts_before_run.json`. Las huellas se comprobaron después: los prompts no cambiaron.
-
-El primer reporte identificó únicamente las secciones 3 y 6:
-
-- Modificación de la devolución del 10 al 11 de noviembre de 2026, conservando las 18:00, el lugar y la fecha/hora de retiro.
-- Adición del depósito de ARS 40.000 al retirar equipos, reembolsable dentro de las 48 horas posteriores a la devolución si no hay faltantes ni daños.
-- No reportó un aumento del precio de alquiler ni cambios en las cláusulas ratificadas. Distinguió explícitamente el depósito del precio.
-
-Las dos transcripciones coinciden con sus fuentes al ignorar espacios y saltos de línea. También se verificó la traza remota completa con cuatro generaciones y jerarquía de etapas.
-
-Consumo: 6027 tokens; duración: 13.1 segundos; costo estimado: USD 0.0229. Evidencia: `examples/alquiler_sonido/`.
-
-Este resultado aporta un caso adicional de otro tipo de contrato, no una medición de precisión general.
-
-## Control adicional sin cambios
-
-Se pasó `data/test_contracts/simple/original.png` como ambos argumentos. El reporte devolvió listas vacías y señaló que no hay cambios sustantivos. Es un control negativo, no un tercer par de contrato/adenda distinto.
-
-Consumo: 6683 tokens; duración: 14.9 segundos; costo local estimado: USD 0.0258. También se verificó su traza remota completa. La evidencia está en `examples/sin_cambios/`.
-
-## Límites de la evidencia
-
-Tres pares ficticios, nítidos y de una página, más el control con imágenes idénticas. No se evaluaron fotos borrosas, manuscritos, PDFs, contratos extensos ni precisión jurídica. Los tests offline comprueban código y contratos de datos; no validan la veracidad de respuestas nuevas. Se requiere revisión humana del contenido.
+El alcance verificado comprende tres pares ficticios nítidos, de una imagen por documento, y un control con imágenes idénticas. Quedan pendientes evaluaciones de documentos reales, fotos degradadas, manuscritos, entradas adversariales y contratos extensos. Pydantic comprueba estructura; el contenido exige revisión humana.

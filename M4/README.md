@@ -19,7 +19,7 @@ flowchart TD
     F --> G[JSON y resumen en terminal]
 ```
 
-El pipeline es secuencial y se instrumenta con Langfuse. Los agentes tienen clases y system prompts separados, implementados como cadenas de LangChain. El extractor recibe ambos textos completos además del mapa; no depende exclusivamente de la interpretación del primer agente.
+El pipeline es secuencial y se instrumenta con Langfuse. Los agentes tienen clases y system prompts separados, implementados como cadenas de LangChain. El extractor consulta ambos textos completos y utiliza el mapa del primer agente como orientación.
 
 ## Requisitos y configuración
 
@@ -48,7 +48,7 @@ LANGFUSE_HOST=https://cloud.langfuse.com
 
 La URL debe coincidir con la región del proyecto. `LANGFUSE_HOST` es el nombre indicado en la consigna. El código también acepta `LANGFUSE_BASE_URL`; si se definen ambos, usa `LANGFUSE_BASE_URL`. Las variables ya definidas en el entorno tienen prioridad sobre `.env`.
 
-Las claves nunca se incluyen en el repositorio. Las bibliotecas LangChain y Pydantic no requieren cuentas. LangSmith no se utiliza.
+Las claves se conservan en el archivo privado `.env`. LangChain y Pydantic se instalan como bibliotecas de Python. La observabilidad de este proyecto se centraliza en Langfuse.
 
 Para comprobar los accesos con una llamada mínima que consume saldo:
 
@@ -71,7 +71,7 @@ python src/main.py data/test_contracts/complejo/original.png data/test_contracts
 python src/main.py data/test_contracts/alquiler_sonido/original.png data/test_contracts/alquiler_sonido/adenda.png
 ```
 
-También acepta imágenes propias, no solamente las de ejemplo:
+También acepta imágenes propias:
 
 ```bash
 python src/main.py /ruta/contrato.png /ruta/adenda.jpg
@@ -99,18 +99,18 @@ Este bloque muestra el formato; las salidas de las pruebas reales se encuentran 
 
 ## Decisiones técnicas
 
-- **GPT-4o:** se usa en visión y en ambos agentes para mantener una configuración única y cumplir el modelo solicitado para el parsing. No se afirma que sea la alternativa óptima sin una comparación de modelos.
-- **Dos responsabilidades:** el primer agente alinea documentos y el segundo audita cambios. Esto facilita inspeccionar fallos de alineación y extracción por separado. No se midió una mejora frente a un único agente.
-- **LangChain:** organiza los prompts y las llamadas de ambos agentes. El flujo fijo no necesita herramientas externas, un bucle autónomo, RAG ni una base vectorial.
-- **Pydantic y structured outputs:** el extractor usa el esquema del proveedor y se vuelve a validar el resultado en el pipeline. Se rechazan campos adicionales, tipos incorrectos, textos vacíos y duplicados. Un esquema válido no demuestra exactitud del contenido.
-- **Prompts especializados:** transcripción literal, mapa sin extracción de diferencias y auditoría apoyada en los textos. Los documentos se consideran datos, no instrucciones para el asistente. Los prompts están en los archivos de cada componente.
-- **Adendas parciales:** una cláusula ausente no se trata automáticamente como eliminada. Una eliminación debe estar sustentada por una instrucción explícita o una sustitución íntegra inequívoca.
-- **Errores:** se comprueban extensión, formato real, tamaño máximo de 10 MB e integridad de ambas imágenes antes de llamar al modelo. Un texto marcado `[ILEGIBLE]`, una respuesta truncada o un rechazo detienen el análisis. No se fabrica un JSON exitoso ante errores.
-- **Límites:** timeout de 60 segundos por llamada y un reintento de transporte mediante los clientes. No se reintenta todo el pipeline. Visión tiene un máximo de 4000 tokens de salida; cada agente, 3000. Los textos combinados se limitan localmente a 50.000 caracteres.
+- **GPT-4o:** se usa en visión y en ambos agentes para mantener una configuración única y cumplir el modelo solicitado para el parsing. La elección prioriza el alcance de esta entrega; una comparación de modelos queda como evaluación futura.
+- **Dos responsabilidades:** el primer agente alinea documentos y el segundo audita cambios. Esto permite inspeccionar cada etapa por separado. La comparación frente a un único agente queda como evaluación futura.
+- **LangChain:** organiza los prompts y las llamadas de ambos agentes. El alcance se resuelve con un flujo fijo sobre los dos documentos recibidos.
+- **Pydantic y structured outputs:** el extractor usa el esquema del proveedor y se vuelve a validar el resultado en el pipeline. Se rechazan campos adicionales, tipos incorrectos, textos vacíos y duplicados. La exactitud del contenido se revisa contra los documentos originales.
+- **Prompts especializados:** instrucciones afirmativas que definen la salida de cada etapa: transcripción literal, mapa de correspondencias y auditoría respaldada por los textos. El mensaje de sistema define la tarea y los documentos aportan la evidencia. Los prompts están en los archivos de cada componente.
+- **Adendas parciales:** las secciones omitidas conservan su vigencia. Una eliminación requiere una instrucción explícita o una sustitución íntegra inequívoca.
+- **Errores:** se comprueban extensión, formato real, tamaño máximo de 10 MB e integridad de ambas imágenes antes de llamar al modelo. Un texto marcado `[ILEGIBLE]`, una respuesta truncada o un rechazo detienen el análisis. Ante errores, el programa informa la causa y termina con un código de salida distinto de cero.
+- **Límites:** timeout de 60 segundos por llamada y un reintento de transporte mediante los clientes. Los reintentos se limitan a la llamada afectada. Visión tiene un máximo de 4000 tokens de salida; cada agente, 3000. Los textos combinados se limitan localmente a 50.000 caracteres.
 
 ## Langfuse
 
-No hay que dibujar el flujo en el dashboard. La instrumentación de Python genera esta jerarquía:
+Langfuse registra automáticamente las etapas del análisis, sus entradas, salidas, tokens y duración. La instrumentación de Python genera esta jerarquía:
 
 ```text
 contract-analysis
@@ -128,7 +128,7 @@ contract-analysis
 
 Cada etapa conserva entrada, salida y duración. Las generaciones incluyen modelo y tokens. Las imágenes en base64 y las claves no se registran en las trazas: visión registra el nombre, formato, dimensiones, hash y prompt. Los textos y reportes sí se envían a Langfuse; las imágenes se envían a OpenAI. Usar documentos ficticios para la demo.
 
-El envío es asíncrono y se llama a `flush()` antes de salir. Un identificador local no prueba recepción remota: se puede verificar la ejecución desde el dashboard o con:
+El envío es asíncrono y se llama a `flush()` antes de salir. La recepción remota se comprueba desde el dashboard o con:
 
 ```bash
 python scripts/check_trace.py outputs/NOMBRE_DE_LA_EJECUCION

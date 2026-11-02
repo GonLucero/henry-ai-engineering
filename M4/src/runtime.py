@@ -1,4 +1,4 @@
-"""Trazas y métricas comunes; no registra claves ni imágenes en base64."""
+"""Clientes, métricas y observabilidad de las etapas del análisis."""
 from contextlib import contextmanager
 from time import perf_counter
 import os

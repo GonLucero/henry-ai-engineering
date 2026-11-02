@@ -11,21 +11,21 @@ El dominio de los ejemplos es producción musical. En el caso simple cambian los
 1. `main.py` recibe dos rutas desde la terminal y carga la configuración.
 2. `validate_image()` comprueba ambos archivos antes de consumir llamadas al modelo.
 3. `parse_contract_image()` codifica una imagen en base64 y solicita a GPT-4o una transcripción. Base64 representa bytes como texto: no lee ni cifra el contrato.
-4. `ContextualizationAgent` recibe los dos textos y construye un mapa: qué secciones hay y cómo se corresponden. No debe listar los cambios.
+4. `ContextualizationAgent` recibe los dos textos y construye un mapa: qué secciones hay y cómo se corresponden. Su entrega se concentra en el inventario, las correspondencias y el propósito de cada sección.
 5. `ExtractionAgent` recibe ese mapa Y los dos textos. El mapa orienta; las fuentes respaldan la comparación. Devuelve los tres campos del esquema.
 6. `ContractChangeOutput` verifica los datos con Pydantic. Esa validación comprueba estructura, no verdad jurídica.
 7. El programa guarda evidencia local, imprime JSON y muestra un resumen breve por stderr.
-8. Langfuse registra toda la ejecución. El dashboard permite inspeccionar las etapas; no es donde se construyen los agentes.
+8. Langfuse registra toda la ejecución. El dashboard permite inspeccionar las etapas ejecutadas por el programa de Python.
 
 ## Las herramientas
 
 - Python conecta las piezas.
 - OpenAI aporta el modelo que interpreta las imágenes y produce respuestas.
-- LangChain arma los mensajes y las cadenas de los agentes. No es un modelo ni requiere otra cuenta.
-- Pydantic define y valida los datos. No requiere cuenta.
+- LangChain es la biblioteca que arma los mensajes y las cadenas de los agentes.
+- Pydantic es la biblioteca que define y valida los datos.
 - Langfuse recibe registros del programa y permite investigar cómo se obtuvo la respuesta.
 
-En este proyecto, agente significa un componente especializado con instrucciones y lógica propias. No hay un bucle que decida herramientas libremente: el orden es fijo y explícito.
+En este proyecto, agente significa un componente especializado con instrucciones y lógica propias. El orden de ejecución de los componentes es fijo y explícito.
 
 ## Demo sugerida
 
@@ -47,7 +47,7 @@ En este proyecto, agente significa un componente especializado con instrucciones
 
 **¿Qué pasa si una cláusula no aparece en la adenda?** Si la adenda es parcial, la omisión no prueba eliminación. El agente tiene una regla explícita al respecto.
 
-**¿Cómo sé que funciona?** Hay tests offline para el código y dos casos de imagen con resultados esperados escritos previamente. Debemos revisar el contenido del reporte y la transcripción; no basta con que el JSON sea válido.
+**¿Cómo sé que funciona?** Hay tests offline para el código y tres pares de imágenes con resultados esperados escritos previamente. Debemos revisar el contenido del reporte y la transcripción; no basta con que el JSON sea válido.
 
 **¿Qué ocurre con una imagen ilegible?** Si la transcripción contiene `[ILEGIBLE]`, se detiene y se solicita una imagen más clara o revisión humana. El modelo puede no marcar todos los errores visuales: la regla no garantiza detectar toda ilegibilidad.
 
