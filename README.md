@@ -1,10 +1,10 @@
 # AI Engineering — Henry
 
-Soy Gonzalo Lucero. En este repositorio organizo mi recorrido por la carrera de AI Engineering de Henry, con foco en aplicaciones que integran modelos de lenguaje, recuperación de información y agentes.
+Este repositorio reúne mi recorrido por los módulos de AI Engineering de Henry, con foco en aplicaciones que integran modelos de lenguaje, recuperación de información y agentes.
 
 ## Herramientas y conceptos
 
-El recorrido reúne Python, APIs de OpenAI y Gemini, prompt engineering, salidas JSON, validación con Pydantic, embeddings, búsqueda vectorial y RAG. También aborda la orquestación con LangChain y la observabilidad con Langfuse para analizar respuestas, tokens y latencia.
+Python, APIs de OpenAI y Gemini, prompt engineering, salidas JSON, validación con Pydantic, embeddings, búsqueda vectorial y RAG. El recorrido también incluye LangChain para orquestar agentes y Langfuse para observar respuestas, tokens y latencia.
 
 ## Módulos
 
