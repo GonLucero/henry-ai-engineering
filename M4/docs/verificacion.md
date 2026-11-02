@@ -45,7 +45,7 @@ Se contrastaron las fuentes `.txt` del generador y los textos leídos de las im�
 | Complejo / original | Presenta diferencias; ver nota de transcripción |
 | Complejo / adenda | Coincide al ignorar espacios y saltos de línea |
 
-En los originales se observó la sustitución de “portfolio” por “portafolio”, aun con una instrucción de transcripción literal. No altera las condiciones del ejemplo, pero demuestra que no debe afirmarse una transcripción idéntica carácter por carácter. Las adendas coinciden al ignorar espacios y saltos de línea. Ningún resultado de estos dos casos mide precisión general en documentos reales.
+En los originales se observó la sustitución de “portfolio” por “portafolio”, aun con una instrucción de transcripción literal. No altera las condiciones del ejemplo, pero demuestra que no debe afirmarse una transcripción idéntica carácter por carácter. La adenda compleja coincide al ignorar espacios y saltos de línea. La transcripción de la adenda simple agregó marcas Markdown de apertura y cierre de un bloque de código, aunque el texto contractual dentro del bloque coincide al ignorar espacios. El parser conserva esas marcas en la evidencia; no alteraron los cambios detectados en este caso. Ningún resultado de estos dos casos mide precisión general en documentos reales.
 
 ## Trazas remotas
 
